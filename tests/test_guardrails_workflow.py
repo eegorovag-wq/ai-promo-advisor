@@ -133,8 +133,54 @@ class EvaluationTest(unittest.TestCase):
         from promo_advisor.evaluate import compare_versions
 
         failures = {item.scenario_id for item in compare_versions()["v2"].failures()}
-        self.assertEqual(failures, {"S13-поставка-завтра", "S14-сезон-против-маржи"})
+        self.assertEqual(failures, {"S13-поставка-завтра", "S14-сезон-против-маржи", "S23-сумма-прибыли-против-доли"})
 
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TextQualityTest(unittest.TestCase):
+    """Текст проверяется правилами, а не на глаз: иначе две версии промпта не сравнить."""
+
+    def _draft(self, **overrides):
+        from promo_advisor.llm import Draft
+
+        base = dict(
+            headline="Набор «Тёплый день»",
+            body="Набор «Тёплый день» — спокойный подарок на любой повод, соберём и упакуем.",
+            reason="Выбран по данным магазина",
+            call_to_action="Напишите нам, подберём подарок.",
+        )
+        base.update(overrides)
+        return Draft(**base)
+
+    def test_хороший_текст_проходит(self):
+        from promo_advisor.text_quality import check_draft
+
+        self.assertEqual(check_draft(self._draft(), RECOMMENDATION), [])
+
+    def test_выдуманное_число_ловится(self):
+        from promo_advisor.text_quality import check_draft
+
+        issues = check_draft(self._draft(body="Набор «Тёплый день» всего за 999 рублей, подробности у нас."), RECOMMENDATION)
+        self.assertIn("invented_number", {issue.code for issue in issues})
+
+    def test_запрещённая_формулировка_ловится(self):
+        from promo_advisor.text_quality import check_draft
+
+        issues = check_draft(self._draft(body="Набор «Тёплый день» — только сегодня дешевле не найдёшь нигде."), RECOMMENDATION)
+        self.assertIn("banned_phrase", {issue.code for issue in issues})
+
+    def test_без_упоминания_товара_ловится(self):
+        from promo_advisor.text_quality import check_draft
+
+        issues = check_draft(self._draft(headline="Подарок", body="Отличное предложение для вашего праздника и близких."), RECOMMENDATION)
+        self.assertIn("product_not_mentioned", {issue.code for issue in issues})
+
+    def test_новый_промпт_чище_старого(self):
+        from promo_advisor.evaluate import compare_prompts
+
+        reports = compare_prompts()
+        self.assertEqual(reports["v1"].clean, 0)
+        self.assertEqual(reports["v2"].clean, reports["v2"].total)

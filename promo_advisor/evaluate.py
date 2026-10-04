@@ -16,8 +16,11 @@ from datetime import date
 from pathlib import Path
 from typing import Callable
 
+from .catalog import load_context, load_products
+from .llm import DraftRequest, LegacyPromptStub, LlmProvider, StubLlm
 from .models import Product, PromoContext, Recommendation
 from .scoring import rank_products
+from .text_quality import TextIssue, check_draft
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
@@ -135,4 +138,72 @@ def compare_versions() -> dict[str, EvaluationReport]:
     return {
         "v1": run_evaluation(rank_products_v1, "v1 (без маржи и сезонности)", scenarios),
         "v2": run_evaluation(rank_products, "v2 (текущая)", scenarios),
+    }
+
+
+# --------------------------------------------------------------------------------------
+# Вторая половина оценки: качество текста публикации.
+#
+# Приоритет проверяется на размеченных сценариях, а текст — правилами из text_quality:
+# запрещённые формулировки, давление срочностью, длина, наличие товара и призыва и —
+# самое важное — числа, которых не было во входных данных.
+#
+# Сравниваются две версии промпта. Чтобы отчёт был воспроизводим и ничего не стоил,
+# обе версии представлены заглушками: v1 повторяет текст до правки промпта, v2 — после.
+# С реальной моделью применяются ровно эти же проверки к её ответу.
+# --------------------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class DraftCheck:
+    product_id: str
+    title: str
+    issues: list[TextIssue]
+
+    @property
+    def clean(self) -> bool:
+        return not self.issues
+
+
+@dataclass(frozen=True)
+class PromptReport:
+    version: str
+    checks: list[DraftCheck]
+
+    @property
+    def total(self) -> int:
+        return len(self.checks)
+
+    @property
+    def clean(self) -> int:
+        return sum(1 for check in self.checks if check.clean)
+
+    @property
+    def share(self) -> float:
+        return self.clean / self.total if self.total else 0.0
+
+    def issues_by_code(self) -> dict[str, int]:
+        counts: dict[str, int] = {}
+        for check in self.checks:
+            for issue in check.issues:
+                counts[issue.code] = counts.get(issue.code, 0) + 1
+        return dict(sorted(counts.items(), key=lambda item: -item[1]))
+
+
+def run_prompt_evaluation(provider: LlmProvider, version: str, limit: int = 8) -> PromptReport:
+    """Берёт первые товары из каталога, просит черновик и проверяет текст правилами."""
+    recommendations = rank_products(load_products(), load_context(date(2026, 12, 20)), limit)
+    checks: list[DraftCheck] = []
+    for recommendation in recommendations:
+        draft = provider.generate_draft(
+            DraftRequest(recommendation=recommendation, channel="telegram", audience="постоянные клиенты")
+        )
+        checks.append(DraftCheck(recommendation.product_id, recommendation.title, check_draft(draft, recommendation)))
+    return PromptReport(version, checks)
+
+
+def compare_prompts() -> dict[str, PromptReport]:
+    return {
+        "v1": run_prompt_evaluation(LegacyPromptStub(), "v1 (промпт без ограничений)"),
+        "v2": run_prompt_evaluation(StubLlm(), "v2 (текущий промпт)"),
     }

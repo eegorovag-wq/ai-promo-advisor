@@ -46,8 +46,8 @@ def _margin_factor(product: Product) -> tuple[Factor, list[str]]:
             ["Низкая маржа: реклама может съесть всю прибыль"],
         )
     return (
-        Factor("margin_negative", f"Маржа отрицательная ({product.margin_rub:.0f} ₽)", 0),
-        ["Цена ниже себестоимости: продвигать нельзя, сначала разберитесь с ценой"],
+        Factor("margin_none", f"Прибыли с продажи нет ({product.margin_rub:.0f} ₽)", 0),
+        ["Цена не выше себестоимости: продвигать нельзя, сначала разберитесь с ценой"],
     )
 
 
@@ -106,7 +106,7 @@ def score_product(product: Product, context: PromoContext) -> Recommendation | N
     """
     if not product.made_to_order and product.stock <= 0:
         return None
-    if product.margin_rub < 0:
+    if product.margin_rub <= 0:
         return None
 
     factors: list[Factor] = []

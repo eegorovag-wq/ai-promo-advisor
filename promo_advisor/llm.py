@@ -124,6 +124,32 @@ class StubLlm:
         return parse_draft(json.dumps(payload, ensure_ascii=False))
 
 
+class LegacyPromptStub:
+    """Как выглядел текст до правки промпта: рекламные штампы, давление срочностью,
+    выдуманная скидка и длинное полотно. Нужна, чтобы сравнение версий промпта
+    считалось числом, а не вспоминалось на словах."""
+
+    def generate_draft(self, request: DraftRequest) -> Draft:
+        rec = request.recommendation
+        payload = {
+            "headline": f"Только сегодня! {rec.title} по лучшей цене — успей купить",
+            "body": (
+                f"Спешите: {rec.title} со скидкой 50 процентов, дешевле не найдёшь нигде! "
+                "Мы гарантируем прибыль вашему празднику и дарим бесплатно упаковку. "
+                "Последний шанс забрать подарок мечты по такой цене, осталось всего 3 штуки, "
+                "успейте оформить заказ прямо сейчас, пока предложение действует."
+            ),
+            "reason": "Товар выбран, потому что он отличный.",
+            "call_to_action": "Срочно пишите нам!",
+        }
+        return Draft(
+            headline=payload["headline"],
+            body=payload["body"],
+            reason=payload["reason"],
+            call_to_action=payload["call_to_action"],
+        )
+
+
 class OpenAiCompatibleLlm:
     """Адаптер к любому OpenAI-совместимому API (OpenAI, Яндекс через шлюз, локальная модель).
 

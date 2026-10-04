@@ -424,6 +424,316 @@
       "expected_top": "b",
       "must_not_recommend": [],
       "why": "За три недели до Нового года сезонный спрос важнее разницы в марже. Текущие веса этого не отражают: вклад повода слишком мал"
+    },
+    {
+      "id": "S15-нулевая-маржа",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Товар по себестоимости",
+          "price_rub": 1000,
+          "cost_rub": 1000,
+          "stock": 40,
+          "units_sold_30d": 0,
+          "posts_30d": 0
+        },
+        {
+          "product_id": "b",
+          "title": "Обычный набор",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 20,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        }
+      ],
+      "expected_top": "b",
+      "must_not_recommend": [
+        "a"
+      ],
+      "why": "Продажа в ноль не приносит денег: тратить на неё рекламу нечего"
+    },
+    {
+      "id": "S16-услуга-против-товара",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Услуга с низкой маржой",
+          "price_rub": 1000,
+          "cost_rub": 850,
+          "stock": 0,
+          "units_sold_30d": 1,
+          "posts_30d": 0,
+          "made_to_order": true
+        },
+        {
+          "product_id": "b",
+          "title": "Товар с высокой маржой",
+          "price_rub": 4000,
+          "cost_rub": 1600,
+          "stock": 25,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        }
+      ],
+      "expected_top": "b",
+      "must_not_recommend": [],
+      "why": "Отсутствие складского ограничения у услуги не компенсирует разницу в прибыли"
+    },
+    {
+      "id": "S17-граница-горизонта-повода",
+      "today": "2026-12-01",
+      "occasions": {
+        "Новый год": "2026-12-31",
+        "8 Марта": "2027-03-08"
+      },
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Набор к Новому году",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 25,
+          "units_sold_30d": 1,
+          "posts_30d": 0,
+          "occasions": [
+            "Новый год"
+          ]
+        },
+        {
+          "product_id": "b",
+          "title": "Набор к 8 Марта",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 25,
+          "units_sold_30d": 1,
+          "posts_30d": 0,
+          "occasions": [
+            "8 Марта"
+          ]
+        }
+      ],
+      "expected_top": "a",
+      "must_not_recommend": [],
+      "why": "До Нового года 30 дней, до 8 Марта более трёх месяцев: в декабре готовят новогоднее"
+    },
+    {
+      "id": "S18-несколько-поводов-берётся-ближайший",
+      "today": "2026-12-20",
+      "occasions": {
+        "Новый год": "2026-12-31",
+        "8 Марта": "2027-03-08"
+      },
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Универсальный набор",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 25,
+          "units_sold_30d": 1,
+          "posts_30d": 0,
+          "occasions": [
+            "8 Марта",
+            "Новый год"
+          ]
+        },
+        {
+          "product_id": "b",
+          "title": "Набор без повода",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 25,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        }
+      ],
+      "expected_top": "a",
+      "must_not_recommend": [],
+      "why": "У товара два повода, считаться должен ближайший — Новый год через 11 дней"
+    },
+    {
+      "id": "S19-граница-остатка",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Остаток 9 штук",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 9,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        },
+        {
+          "product_id": "b",
+          "title": "Остаток 10 штук",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 10,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        }
+      ],
+      "expected_top": "b",
+      "must_not_recommend": [],
+      "why": "При прочих равных продвигают то, чего точно хватит на спрос"
+    },
+    {
+      "id": "S20-свежий-важнее-прибыльного-перегретого",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Высокая маржа, две публикации",
+          "price_rub": 4000,
+          "cost_rub": 1800,
+          "stock": 30,
+          "units_sold_30d": 1,
+          "posts_30d": 2
+        },
+        {
+          "product_id": "b",
+          "title": "Средняя маржа, без публикаций",
+          "price_rub": 3000,
+          "cost_rub": 1900,
+          "stock": 30,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        }
+      ],
+      "expected_top": "b",
+      "must_not_recommend": [],
+      "why": "Товар, который уже дважды показывали за месяц, уступает очередь непоказанному"
+    },
+    {
+      "id": "S21-две-услуги-решает-маржа",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Оформление стола",
+          "price_rub": 6990,
+          "cost_rub": 3800,
+          "stock": 0,
+          "units_sold_30d": 1,
+          "posts_30d": 0,
+          "made_to_order": true
+        },
+        {
+          "product_id": "b",
+          "title": "Оформление фотозоны",
+          "price_rub": 12990,
+          "cost_rub": 5200,
+          "stock": 0,
+          "units_sold_30d": 1,
+          "posts_30d": 0,
+          "made_to_order": true
+        }
+      ],
+      "expected_top": "b",
+      "must_not_recommend": [],
+      "why": "Обе услуги под заказ и равны по остальным признакам: выбирается более прибыльная"
+    },
+    {
+      "id": "S22-товар-который-и-так-продаётся",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Без продаж за месяц",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 30,
+          "units_sold_30d": 0,
+          "posts_30d": 0
+        },
+        {
+          "product_id": "b",
+          "title": "Шесть продаж за месяц",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 30,
+          "units_sold_30d": 6,
+          "posts_30d": 0
+        }
+      ],
+      "expected_top": "a",
+      "must_not_recommend": [],
+      "why": "Шесть продаж идут и без рекламы; внимание нужнее тому, кого не покупают, но риск по нему отмечается отдельно"
+    },
+    {
+      "id": "S23-сумма-прибыли-против-доли",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Дорогой товар: доля 12%, прибыль 6000 ₽",
+          "price_rub": 50000,
+          "cost_rub": 44000,
+          "stock": 20,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        },
+        {
+          "product_id": "b",
+          "title": "Дешёвый товар: доля 60%, прибыль 300 ₽",
+          "price_rub": 500,
+          "cost_rub": 200,
+          "stock": 20,
+          "units_sold_30d": 1,
+          "posts_30d": 0
+        }
+      ],
+      "expected_top": "a",
+      "must_not_recommend": [],
+      "why": "Эксперт считает деньги, а не проценты: одна продажа дорогого товара приносит в двадцать раз больше. Текущая формула смотрит на долю маржи"
+    },
+    {
+      "id": "S24-все-перегреты-кроме-одного",
+      "today": "2026-10-05",
+      "occasions": {},
+      "products": [
+        {
+          "product_id": "a",
+          "title": "Три публикации",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 30,
+          "units_sold_30d": 1,
+          "posts_30d": 3
+        },
+        {
+          "product_id": "b",
+          "title": "Две публикации",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 30,
+          "units_sold_30d": 1,
+          "posts_30d": 2
+        },
+        {
+          "product_id": "c",
+          "title": "Одна публикация",
+          "price_rub": 3000,
+          "cost_rub": 1500,
+          "stock": 30,
+          "units_sold_30d": 1,
+          "posts_30d": 1
+        }
+      ],
+      "expected_top": "c",
+      "must_not_recommend": [],
+      "why": "Когда все примелькались, очередь у того, кого показывали реже всех"
     }
   ]
 }
