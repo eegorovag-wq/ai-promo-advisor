@@ -1,0 +1,319 @@
+{
+  "generated_note": "Синтетические данные. Любое совпадение с реальным магазином случайно.",
+  "products": [
+    {
+      "product_id": "p01",
+      "title": "Свеча «Тихий вечер»",
+      "category": "свечи",
+      "price_rub": 1490,
+      "cost_rub": 520,
+      "stock": 40,
+      "units_sold_30d": 3,
+      "posts_30d": 0,
+      "occasions": [
+        "Новый год"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p02",
+      "title": "Свеча «Инжир и кедр»",
+      "category": "свечи",
+      "price_rub": 1590,
+      "cost_rub": 640,
+      "stock": 18,
+      "units_sold_30d": 1,
+      "posts_30d": 3,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p03",
+      "title": "Свеча «Хлопок»",
+      "category": "свечи",
+      "price_rub": 1290,
+      "cost_rub": 470,
+      "stock": 18,
+      "units_sold_30d": 0,
+      "posts_30d": 0,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p04",
+      "title": "Набор «Утро начинается»",
+      "category": "готовые подарки",
+      "price_rub": 4890,
+      "cost_rub": 2450,
+      "stock": 12,
+      "units_sold_30d": 8,
+      "posts_30d": 3,
+      "occasions": [
+        "8 Марта"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p05",
+      "title": "Набор «Тёплый день»",
+      "category": "готовые подарки",
+      "price_rub": 5490,
+      "cost_rub": 2980,
+      "stock": 40,
+      "units_sold_30d": 3,
+      "posts_30d": 3,
+      "occasions": [
+        "8 Марта"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p06",
+      "title": "Набор «Корпоративный минимум»",
+      "category": "готовые подарки",
+      "price_rub": 3690,
+      "cost_rub": 2210,
+      "stock": 26,
+      "units_sold_30d": 8,
+      "posts_30d": 0,
+      "occasions": [
+        "Новый год"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p07",
+      "title": "Шар латексный 30 см «Айвори»",
+      "category": "шары",
+      "price_rub": 120,
+      "cost_rub": 38,
+      "stock": 0,
+      "units_sold_30d": 1,
+      "posts_30d": 3,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p08",
+      "title": "Шар фольгированный «Сердце»",
+      "category": "шары",
+      "price_rub": 260,
+      "cost_rub": 96,
+      "stock": 12,
+      "units_sold_30d": 1,
+      "posts_30d": 2,
+      "occasions": [
+        "14 февраля"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p09",
+      "title": "Шар фольгированный «Звезда»",
+      "category": "шары",
+      "price_rub": 250,
+      "cost_rub": 92,
+      "stock": 12,
+      "units_sold_30d": 5,
+      "posts_30d": 1,
+      "occasions": [
+        "Новый год"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p10",
+      "title": "Связка «Пудровое облако»",
+      "category": "шары",
+      "price_rub": 2890,
+      "cost_rub": 1180,
+      "stock": 3,
+      "units_sold_30d": 0,
+      "posts_30d": 0,
+      "occasions": [
+        "День рождения"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p11",
+      "title": "Композиция «Серебряный вечер»",
+      "category": "шары",
+      "price_rub": 4200,
+      "cost_rub": 1760,
+      "stock": 40,
+      "units_sold_30d": 0,
+      "posts_30d": 1,
+      "occasions": [
+        "Новый год"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p12",
+      "title": "Плед «Мягкий кашемир»",
+      "category": "дополнительные товары",
+      "price_rub": 3990,
+      "cost_rub": 2600,
+      "stock": 55,
+      "units_sold_30d": 1,
+      "posts_30d": 2,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p13",
+      "title": "Кружка рельефная с золотой ручкой",
+      "category": "дополнительные товары",
+      "price_rub": 1190,
+      "cost_rub": 560,
+      "stock": 40,
+      "units_sold_30d": 5,
+      "posts_30d": 0,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p14",
+      "title": "Чай «Вишня и какао»",
+      "category": "дополнительные товары",
+      "price_rub": 690,
+      "cost_rub": 410,
+      "stock": 40,
+      "units_sold_30d": 5,
+      "posts_30d": 1,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p15",
+      "title": "Открытка «Ботаника»",
+      "category": "открытки",
+      "price_rub": 190,
+      "cost_rub": 62,
+      "stock": 0,
+      "units_sold_30d": 5,
+      "posts_30d": 0,
+      "occasions": [
+        "8 Марта"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p16",
+      "title": "Открытка «Зимний пейзаж»",
+      "category": "открытки",
+      "price_rub": 190,
+      "cost_rub": 68,
+      "stock": 55,
+      "units_sold_30d": 5,
+      "posts_30d": 1,
+      "occasions": [
+        "Новый год"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p17",
+      "title": "Упаковка «Коробка с лентой»",
+      "category": "упаковка",
+      "price_rub": 450,
+      "cost_rub": 210,
+      "stock": 0,
+      "units_sold_30d": 8,
+      "posts_30d": 0,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p18",
+      "title": "Упаковка «Крафт и сургуч»",
+      "category": "упаковка",
+      "price_rub": 390,
+      "cost_rub": 150,
+      "stock": 3,
+      "units_sold_30d": 2,
+      "posts_30d": 0,
+      "occasions": [],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p19",
+      "title": "Игрушка «Зайка в банте»",
+      "category": "игрушки",
+      "price_rub": 2490,
+      "cost_rub": 1180,
+      "stock": 26,
+      "units_sold_30d": 0,
+      "posts_30d": 0,
+      "occasions": [
+        "Выписка"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p20",
+      "title": "Игрушка «Медвежонок»",
+      "category": "игрушки",
+      "price_rub": 2790,
+      "cost_rub": 1420,
+      "stock": 3,
+      "units_sold_30d": 3,
+      "posts_30d": 0,
+      "occasions": [
+        "Выписка"
+      ],
+      "made_to_order": false
+    },
+    {
+      "product_id": "p21",
+      "title": "Оформление фотозоны",
+      "category": "услуги",
+      "price_rub": 12990,
+      "cost_rub": 6900,
+      "stock": 0,
+      "units_sold_30d": 1,
+      "posts_30d": 0,
+      "occasions": [
+        "День рождения"
+      ],
+      "made_to_order": true
+    },
+    {
+      "product_id": "p22",
+      "title": "Оформление праздничного стола",
+      "category": "услуги",
+      "price_rub": 6990,
+      "cost_rub": 3800,
+      "stock": 0,
+      "units_sold_30d": 3,
+      "posts_30d": 0,
+      "occasions": [],
+      "made_to_order": true
+    },
+    {
+      "product_id": "p23",
+      "title": "Персонализация: гравировка",
+      "category": "услуги",
+      "price_rub": 890,
+      "cost_rub": 250,
+      "stock": 0,
+      "units_sold_30d": 5,
+      "posts_30d": 0,
+      "occasions": [],
+      "made_to_order": true
+    },
+    {
+      "product_id": "p24",
+      "title": "Сборка подарка по эскизу",
+      "category": "услуги",
+      "price_rub": 1500,
+      "cost_rub": 420,
+      "stock": 0,
+      "units_sold_30d": 5,
+      "posts_30d": 0,
+      "occasions": [],
+      "made_to_order": true
+    }
+  ]
+}
