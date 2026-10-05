@@ -35,7 +35,6 @@ class PublishPolicy:
     """Настройки, которые владелец задаёт в интерфейсе, а не модель в промпте."""
 
     kill_switch: bool = False          # общий стоп: выключает публикации целиком
-    require_approval: bool = True      # публикация только после согласования человеком
     max_discount_percent: int = MAX_DISCOUNT_PERCENT
 
 
@@ -81,7 +80,7 @@ def check_can_publish(
     """
     if policy.kill_switch:
         raise GuardrailError("Включён общий стоп публикаций")
-    if policy.require_approval and not approved_by:
+    if not approved_by:
         raise GuardrailError("Публикация без согласования человеком запрещена")
     check_discount(discount_percent, policy)
     check_text(text)

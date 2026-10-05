@@ -87,6 +87,9 @@ def parse_draft(raw: str) -> Draft:
     if not isinstance(data, dict):
         raise LlmError("Ответ модели не является объектом JSON")
     required = ("headline", "body", "reason", "call_to_action")
+    unexpected = sorted(set(data) - set(required))
+    if unexpected:
+        raise LlmError(f"В ответе модели есть лишние поля: {', '.join(unexpected)}")
     missing = [key for key in required if not isinstance(data.get(key), str) or not data[key].strip()]
     if missing:
         raise LlmError(f"В ответе модели нет обязательных полей: {', '.join(missing)}")

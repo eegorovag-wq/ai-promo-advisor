@@ -4,8 +4,13 @@
 а запрещённое не проходит ни при каких настройках промпта.
 """
 
+import os
+import sqlite3
+import subprocess
+import sys
 import tempfile
 import unittest
+from contextlib import closing
 from datetime import date, datetime
 from pathlib import Path
 
@@ -17,6 +22,7 @@ from promo_advisor.workflow import PostStore, make_draft
 DAYTIME = datetime(2026, 10, 5, 12, 0)
 NIGHT = datetime(2026, 10, 5, 23, 30)
 EARLY = datetime(2026, 10, 5, 7, 0)
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 RECOMMENDATION = Recommendation(
     product_id="p1",
@@ -32,6 +38,10 @@ class GuardrailTest(unittest.TestCase):
     def test_без_согласования_публиковать_нельзя(self):
         with self.assertRaises(GuardrailError):
             check_can_publish(approved_by=None, text="текст", discount_percent=0, moment=DAYTIME, policy=PublishPolicy())
+
+    def test_обязательное_согласование_нельзя_отключить_политикой(self):
+        with self.assertRaises(TypeError):
+            PublishPolicy(require_approval=False)
 
     def test_общий_стоп_сильнее_согласования(self):
         with self.assertRaises(GuardrailError) as error:
@@ -68,6 +78,12 @@ class LlmContractTest(unittest.TestCase):
     def test_нехватка_полей_отклоняется(self):
         with self.assertRaises(LlmError):
             parse_draft('{"headline": "Заголовок"}')
+
+    def test_лишние_поля_отклоняются(self):
+        with self.assertRaises(LlmError):
+            parse_draft(
+                '{"headline":"З","body":"Т","reason":"Р","call_to_action":"П","discount":50}'
+            )
 
     def test_слишком_длинный_заголовок_отклоняется(self):
         payload = '{"headline": "%s", "body": "т", "reason": "р", "call_to_action": "п"}' % ("я" * 61)
@@ -129,11 +145,54 @@ class EvaluationTest(unittest.TestCase):
         self.assertGreater(reports["v2"].accuracy, reports["v1"].accuracy)
 
     def test_известные_пробелы_зафиксированы(self):
-        """Два сценария v2 не проходит осознанно: это документированные ограничения."""
+        """Три сценария v2 не проходит осознанно: это документированные ограничения."""
         from promo_advisor.evaluate import compare_versions
 
         failures = {item.scenario_id for item in compare_versions()["v2"].failures()}
         self.assertEqual(failures, {"S13-поставка-завтра", "S14-сезон-против-маржи", "S23-сумма-прибыли-против-доли"})
+
+
+class CliRegressionTest(unittest.TestCase):
+    def test_черновик_создаётся_один_раз_при_windows_cp1251(self):
+        with tempfile.TemporaryDirectory() as directory:
+            db_path = Path(directory) / "promo.db"
+            env = os.environ.copy()
+            env["PYTHONIOENCODING"] = "cp1251"
+            env.pop("PROMO_LLM_API_KEY", None)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "-m",
+                    "promo_advisor",
+                    "--db",
+                    str(db_path),
+                    "draft",
+                    "p01",
+                    "--channel",
+                    "telegram",
+                ],
+                cwd=PROJECT_ROOT,
+                env=env,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr.decode("utf-8", errors="replace"))
+            self.assertIn("Черновик №1 создан", result.stdout.decode("utf-8"))
+            with closing(sqlite3.connect(db_path)) as connection:
+                count = connection.execute("SELECT COUNT(*) FROM posts").fetchone()[0]
+            self.assertEqual(count, 1)
+
+    def test_cli_не_предлагает_обход_согласования(self):
+        result = subprocess.run(
+            [sys.executable, "-m", "promo_advisor", "publish", "--help"],
+            cwd=PROJECT_ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0)
+        self.assertNotIn(b"allow-without-approval", result.stdout)
 
 
 if __name__ == "__main__":

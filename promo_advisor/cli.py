@@ -80,7 +80,7 @@ def _cmd_approve(args: argparse.Namespace) -> int:
 
 def _cmd_publish(args: argparse.Namespace) -> int:
     store = PostStore(args.db)
-    policy = PublishPolicy(kill_switch=args.kill_switch, require_approval=not args.allow_without_approval)
+    policy = PublishPolicy(kill_switch=args.kill_switch)
     moment = datetime.fromisoformat(args.at) if args.at else datetime.now()
     try:
         post = store.publish(args.post_id, policy, args.actor, now=moment)
@@ -114,7 +114,7 @@ def main(argv: list[str] | None = None) -> int:
 
     p_draft = sub.add_parser("draft", help="сделать черновик публикации")
     p_draft.add_argument("product_id")
-    p_draft.add_argument("--channel", default="telegram")
+    p_draft.add_argument("--channel", default="telegram", choices=("telegram", "max"))
     p_draft.add_argument("--audience", default="постоянные клиенты")
     p_draft.add_argument("--actor", default="менеджер")
     p_draft.add_argument("--discount", type=int, default=0)
@@ -132,9 +132,8 @@ def main(argv: list[str] | None = None) -> int:
     p_publish.add_argument("--actor", required=True)
     p_publish.add_argument("--at", default=None, help="время в формате ISO, для проверки тихих часов")
     p_publish.add_argument("--kill-switch", action="store_true", help="включить общий стоп")
-    p_publish.add_argument("--allow-without-approval", action="store_true")
 
-    sub.add_parser("evaluate", help="оценка качества: v1 против v2")
+    sub.add_parser("evaluate", help="внутренняя acceptance-проверка логики: v1 против v2")
 
     args = parser.parse_args(argv)
     if args.command == "recommend":
