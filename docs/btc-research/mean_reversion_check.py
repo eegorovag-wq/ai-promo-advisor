@@ -3,19 +3,40 @@
 Детерминированный скрипт. Единственный источник случайности — np.random.default_rng(SEED),
 поэтому вывод побайтно воспроизводим. Входные файлы проверяются по SHA-256.
 
-Запуск:  python mean_reversion_check.py
+Запуск:  python mean_reversion_check.py [путь-к-папке-с-данными]
+         Без аргумента берётся $BTCUSDT_SPOT_6M, иначе ./DATA_BTCUSDT_SPOT_6M,
+         иначе ../DATA_BTCUSDT_SPOT_6M.
 Выход:   MEAN_REVERSION_CHECK.json  (машинный)
-         MEAN_REVERSION_CHECK.md    (человеческий)
+         MEAN_REVERSION_CHECK.md    (человеческий, см. render_report.py)
+
+Данные — клайны Bybit Spot BTCUSDT, скачиваются публичным эндпоинтом
+/v5/market/kline. Колонки: open_time_ms,open,high,low,close,volume.
+Ожидаемые SHA-256 входных файлов указаны в готовом отчёте.
 """
 from __future__ import annotations
-import csv, hashlib, json, platform, sys
+import csv, hashlib, json, os, platform, sys
 from pathlib import Path
 import numpy as np
 
 SEED = 20260928
 NSIM = 1000
 QS = [2, 4, 8, 16, 32, 64, 128, 256]
-DATA = Path(__file__).resolve().parent.parent / "DATA_BTCUSDT_SPOT_6M"
+HERE = Path(__file__).resolve().parent
+
+
+def resolve_data_dir() -> Path:
+    if len(sys.argv) > 1:
+        return Path(sys.argv[1]).expanduser().resolve()
+    env = os.environ.get("BTCUSDT_SPOT_6M")
+    if env:
+        return Path(env).expanduser().resolve()
+    for cand in (HERE / "DATA_BTCUSDT_SPOT_6M", HERE.parent / "DATA_BTCUSDT_SPOT_6M"):
+        if cand.is_dir():
+            return cand
+    return HERE / "DATA_BTCUSDT_SPOT_6M"
+
+
+DATA = resolve_data_dir()
 FILES = {
     "1m":  "BTCUSDT_SPOT_1_2026-03-01_2026-09-01.csv",
     "5m":  "BTCUSDT_SPOT_5_2026-03-01_2026-09-01.csv",
@@ -68,10 +89,15 @@ def vr_z(r: np.ndarray, q: int) -> tuple[float, float, float]:
 
 
 def main() -> int:
+    if not DATA.is_dir():
+        print("Папка с данными не найдена: %s" % DATA, file=sys.stderr)
+        print("Укажите её первым аргументом или в $BTCUSDT_SPOT_6M.", file=sys.stderr)
+        return 2
     missing = [f for f in FILES.values() if not (DATA / f).exists()]
     if missing:
-        print("НЕТ ВХОДНЫХ ФАЙЛОВ: %s" % ", ".join(missing), file=sys.stderr)
+        print("В %s не хватает файлов: %s" % (DATA, ", ".join(missing)), file=sys.stderr)
         return 2
+    print("данные: %s" % DATA)
 
     rng = np.random.default_rng(SEED)
     report: dict = {
