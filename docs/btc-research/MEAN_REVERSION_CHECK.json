@@ -1,0 +1,541 @@
+{
+  "seed": 20260928,
+  "surrogate_draws": 1000,
+  "python": "3.14.6",
+  "numpy": "2.5.2",
+  "inputs": {
+    "1m": {
+      "file": "BTCUSDT_SPOT_1_2026-03-01_2026-09-01.csv",
+      "sha256": "d36a3c5a8f58cd15dfede921afec1685967835b0c23ba522a9c377b928032e36"
+    },
+    "5m": {
+      "file": "BTCUSDT_SPOT_5_2026-03-01_2026-09-01.csv",
+      "sha256": "8c6a301c473904fae914a2497ae077bbe615f5c8437683ca4c6469ea7acba372"
+    },
+    "15m": {
+      "file": "BTCUSDT_SPOT_15_2026-03-01_2026-09-01.csv",
+      "sha256": "ce75e391f034d07893b52e76914f5e1e020af24905ecf024b85d8ceec05b3533"
+    }
+  },
+  "timeframes": {
+    "1m": {
+      "bars": 264959,
+      "excess_kurtosis": 37.73,
+      "buy_and_hold_pct": 17.3,
+      "q": {
+        "2": {
+          "vr": 1.0018,
+          "z_homoskedastic": 0.9,
+          "z_robust_M2": 0.31,
+          "shuffle_ci95": [
+            0.9962,
+            1.0037
+          ],
+          "shuffle_outside": false,
+          "signflip_ci95": [
+            0.9892,
+            1.0099
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 62.5
+        },
+        "4": {
+          "vr": 0.9882,
+          "z_homoskedastic": -3.25,
+          "z_robust_M2": -1.21,
+          "shuffle_ci95": [
+            0.9926,
+            1.0072
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9814,
+            1.0211
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 11.7
+        },
+        "8": {
+          "vr": 0.9707,
+          "z_homoskedastic": -5.11,
+          "z_robust_M2": -2.09,
+          "shuffle_ci95": [
+            0.9885,
+            1.0116
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9748,
+            1.0285
+          ],
+          "signflip_outside": true,
+          "signflip_pctile": 1.1
+        },
+        "16": {
+          "vr": 0.9617,
+          "z_homoskedastic": -4.48,
+          "z_robust_M2": -2.04,
+          "shuffle_ci95": [
+            0.9841,
+            1.0161
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9663,
+            1.0385
+          ],
+          "signflip_outside": true,
+          "signflip_pctile": 2.0
+        },
+        "32": {
+          "vr": 0.9544,
+          "z_homoskedastic": -3.68,
+          "z_robust_M2": -1.86,
+          "shuffle_ci95": [
+            0.9767,
+            1.0239
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9574,
+            1.048
+          ],
+          "signflip_outside": true,
+          "signflip_pctile": 2.2
+        },
+        "64": {
+          "vr": 0.9387,
+          "z_homoskedastic": -3.46,
+          "z_robust_M2": -1.91,
+          "shuffle_ci95": [
+            0.9652,
+            1.0341
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9416,
+            1.075
+          ],
+          "signflip_outside": true,
+          "signflip_pctile": 1.8
+        },
+        "128": {
+          "vr": 0.9251,
+          "z_homoskedastic": -2.97,
+          "z_robust_M2": -1.77,
+          "shuffle_ci95": [
+            0.9469,
+            1.0532
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9242,
+            1.0861
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 2.6
+        },
+        "256": {
+          "vr": 0.8872,
+          "z_homoskedastic": -3.15,
+          "z_robust_M2": -2.03,
+          "shuffle_ci95": [
+            0.9342,
+            1.0697
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.8925,
+            1.1165
+          ],
+          "signflip_outside": true,
+          "signflip_pctile": 2.1
+        }
+      },
+      "subperiods_q64": [
+        {
+          "block": 1,
+          "bars": 44160,
+          "vr": 0.9573,
+          "z_robust_M2": -0.64
+        },
+        {
+          "block": 2,
+          "bars": 44160,
+          "vr": 0.9356,
+          "z_robust_M2": -1.01
+        },
+        {
+          "block": 3,
+          "bars": 44160,
+          "vr": 0.9144,
+          "z_robust_M2": -1.26
+        },
+        {
+          "block": 4,
+          "bars": 44160,
+          "vr": 0.9126,
+          "z_robust_M2": -1.25
+        },
+        {
+          "block": 5,
+          "bars": 44160,
+          "vr": 0.9558,
+          "z_robust_M2": -0.69
+        },
+        {
+          "block": 6,
+          "bars": 44159,
+          "vr": 0.9563,
+          "z_robust_M2": -0.39
+        }
+      ]
+    },
+    "5m": {
+      "bars": 52991,
+      "excess_kurtosis": 31.47,
+      "buy_and_hold_pct": 17.22,
+      "q": {
+        "2": {
+          "vr": 0.9948,
+          "z_homoskedastic": -1.19,
+          "z_robust_M2": -0.59,
+          "shuffle_ci95": [
+            0.9913,
+            1.0089
+          ],
+          "shuffle_outside": false,
+          "signflip_ci95": [
+            0.9831,
+            1.0172
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 30.1
+        },
+        "4": {
+          "vr": 0.9828,
+          "z_homoskedastic": -2.12,
+          "z_robust_M2": -1.09,
+          "shuffle_ci95": [
+            0.9842,
+            1.0149
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9683,
+            1.0323
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 13.7
+        },
+        "8": {
+          "vr": 0.9713,
+          "z_homoskedastic": -2.23,
+          "z_robust_M2": -1.22,
+          "shuffle_ci95": [
+            0.974,
+            1.0248
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9551,
+            1.0461
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 12.6
+        },
+        "16": {
+          "vr": 0.9496,
+          "z_homoskedastic": -2.64,
+          "z_robust_M2": -1.53,
+          "shuffle_ci95": [
+            0.9616,
+            1.0354
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9389,
+            1.064
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 5.0
+        },
+        "32": {
+          "vr": 0.927,
+          "z_homoskedastic": -2.64,
+          "z_robust_M2": -1.63,
+          "shuffle_ci95": [
+            0.9498,
+            1.0534
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9163,
+            1.0953
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 4.8
+        },
+        "64": {
+          "vr": 0.8832,
+          "z_homoskedastic": -2.95,
+          "z_robust_M2": -1.93,
+          "shuffle_ci95": [
+            0.9196,
+            1.0826
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.8894,
+            1.1079
+          ],
+          "signflip_outside": true,
+          "signflip_pctile": 1.9
+        },
+        "128": {
+          "vr": 0.8721,
+          "z_homoskedastic": -2.27,
+          "z_robust_M2": -1.59,
+          "shuffle_ci95": [
+            0.8969,
+            1.1067
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.8531,
+            1.1637
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 4.6
+        },
+        "256": {
+          "vr": 0.9129,
+          "z_homoskedastic": -1.09,
+          "z_robust_M2": -0.81,
+          "shuffle_ci95": [
+            0.8467,
+            1.1693
+          ],
+          "shuffle_outside": false,
+          "signflip_ci95": [
+            0.7969,
+            1.2252
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 22.8
+        }
+      },
+      "subperiods_q64": [
+        {
+          "block": 1,
+          "bars": 8832,
+          "vr": 0.8721,
+          "z_robust_M2": -1.03
+        },
+        {
+          "block": 2,
+          "bars": 8832,
+          "vr": 0.9191,
+          "z_robust_M2": -0.65
+        },
+        {
+          "block": 3,
+          "bars": 8832,
+          "vr": 0.8345,
+          "z_robust_M2": -1.3
+        },
+        {
+          "block": 4,
+          "bars": 8832,
+          "vr": 0.7519,
+          "z_robust_M2": -1.76
+        },
+        {
+          "block": 5,
+          "bars": 8832,
+          "vr": 0.8984,
+          "z_robust_M2": -0.82
+        },
+        {
+          "block": 6,
+          "bars": 8831,
+          "vr": 1.1236,
+          "z_robust_M2": 0.74
+        }
+      ]
+    },
+    "15m": {
+      "bars": 17663,
+      "excess_kurtosis": 15.76,
+      "buy_and_hold_pct": 17.44,
+      "q": {
+        "2": {
+          "vr": 0.984,
+          "z_homoskedastic": -2.13,
+          "z_robust_M2": -1.02,
+          "shuffle_ci95": [
+            0.9857,
+            1.0149
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9707,
+            1.0293
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 15.8
+        },
+        "4": {
+          "vr": 0.966,
+          "z_homoskedastic": -2.42,
+          "z_robust_M2": -1.24,
+          "shuffle_ci95": [
+            0.9744,
+            1.0276
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9471,
+            1.0545
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 9.1
+        },
+        "8": {
+          "vr": 0.9556,
+          "z_homoskedastic": -1.99,
+          "z_robust_M2": -1.12,
+          "shuffle_ci95": [
+            0.9563,
+            1.0449
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.9232,
+            1.0798
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 15.1
+        },
+        "16": {
+          "vr": 0.9116,
+          "z_homoskedastic": -2.67,
+          "z_robust_M2": -1.65,
+          "shuffle_ci95": [
+            0.9419,
+            1.0752
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.8986,
+            1.1065
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 4.1
+        },
+        "32": {
+          "vr": 0.8722,
+          "z_homoskedastic": -2.66,
+          "z_robust_M2": -1.8,
+          "shuffle_ci95": [
+            0.9092,
+            1.0942
+          ],
+          "shuffle_outside": true,
+          "signflip_ci95": [
+            0.8659,
+            1.1533
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 2.9
+        },
+        "64": {
+          "vr": 0.8883,
+          "z_homoskedastic": -1.63,
+          "z_robust_M2": -1.19,
+          "shuffle_ci95": [
+            0.8696,
+            1.1407
+          ],
+          "shuffle_outside": false,
+          "signflip_ci95": [
+            0.8418,
+            1.2015
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 12.2
+        },
+        "128": {
+          "vr": 0.9704,
+          "z_homoskedastic": -0.3,
+          "z_robust_M2": -0.23,
+          "shuffle_ci95": [
+            0.8292,
+            1.1929
+          ],
+          "shuffle_outside": false,
+          "signflip_ci95": [
+            0.7707,
+            1.2796
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 43.9
+        },
+        "256": {
+          "vr": 1.0749,
+          "z_homoskedastic": 0.54,
+          "z_robust_M2": 0.43,
+          "shuffle_ci95": [
+            0.7576,
+            1.2839
+          ],
+          "shuffle_outside": false,
+          "signflip_ci95": [
+            0.7052,
+            1.3455
+          ],
+          "signflip_outside": false,
+          "signflip_pctile": 70.8
+        }
+      },
+      "subperiods_q64": [
+        {
+          "block": 1,
+          "bars": 2944,
+          "vr": 0.8808,
+          "z_robust_M2": -0.61
+        },
+        {
+          "block": 2,
+          "bars": 2944,
+          "vr": 0.9605,
+          "z_robust_M2": -0.2
+        },
+        {
+          "block": 3,
+          "bars": 2944,
+          "vr": 0.7645,
+          "z_robust_M2": -1.2
+        },
+        {
+          "block": 4,
+          "bars": 2944,
+          "vr": 0.6621,
+          "z_robust_M2": -1.55
+        },
+        {
+          "block": 5,
+          "bars": 2944,
+          "vr": 0.8973,
+          "z_robust_M2": -0.53
+        },
+        {
+          "block": 6,
+          "bars": 2943,
+          "vr": 1.2853,
+          "z_robust_M2": 1.12
+        }
+      ]
+    }
+  }
+}
