@@ -14,7 +14,7 @@ import argparse
 from datetime import date, datetime
 
 from .catalog import load_context, load_products
-from .evaluate import compare_versions
+from .evaluate import compare_prompts, compare_versions
 from .guardrails import GuardrailError, PublishPolicy
 from .llm import get_provider
 from .scoring import rank_products
@@ -94,12 +94,24 @@ def _cmd_publish(args: argparse.Namespace) -> int:
 
 
 def _cmd_evaluate(_: argparse.Namespace) -> int:
-    reports = compare_versions()
-    for report in reports.values():
-        print(f"\n{report.version}: {report.passed} из {report.total} ({report.accuracy:.0%})")
+    print("ВЫБОР ТОВАРА — проверка на размеченных сценариях")
+    for report in compare_versions().values():
+        print()
+        print(f"  {report.version}: {report.passed} из {report.total} ({report.accuracy:.0%})")
         for failure in report.failures():
-            print(f"   не сошлось: {failure.scenario_id} — ожидали {failure.expected}, получили {failure.got}")
-    print("\nСценарии размечены автором правил, это проверка логики, а не независимый замер спроса.")
+            print(f"     не сошлось: {failure.scenario_id} — ожидали {failure.expected}, получили {failure.got}")
+
+    print()
+    print()
+    print("ТЕКСТ ПУБЛИКАЦИИ — проверка правилами")
+    for report in compare_prompts().values():
+        print()
+        print(f"  {report.version}: без нарушений {report.clean} из {report.total} ({report.share:.0%})")
+        for code, count in report.issues_by_code().items():
+            print(f"     {code}: {count}")
+
+    print()
+    print("Сценарии размечены автором правил, это проверка логики, а не независимый замер спроса.")
     return 0
 
 
